@@ -50,7 +50,7 @@
         header {
             position: fixed;
             top: 0; width: 100%;
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.5);
@@ -125,10 +125,11 @@
             transition: all 0.4s ease;
             box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
             display: inline-block;
+            text-align: center;
         }
         .btn:hover {
             background-position: right center;
-            transform: translateY(-5px) translateZ(20px); /* 3D pop on hover */
+            transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(79, 70, 229, 0.4);
         }
 
@@ -154,7 +155,7 @@
         .section-header p { color: var(--text-light); font-size: 1.15rem; max-width: 700px; margin: 0 auto; }
         .divider { width: 60px; height: 6px; background: var(--gradient); margin: 25px auto; border-radius: 10px; }
 
-        /* --- 1. HERO (INTERACTIVE) --- */
+        /* --- HERO --- */
         .hero {
             position: relative;
             height: calc(100vh - 80px);
@@ -164,7 +165,7 @@
             background: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2072&auto=format&fit=crop') center/cover no-repeat;
             background-attachment: fixed;
             overflow: hidden;
-            perspective: 1000px; /* Needed for 3D tilt */
+            perspective: 1000px;
         }
         .hero::before {
             content: '';
@@ -174,7 +175,6 @@
             z-index: 1;
         }
         
-        /* Interactive Ambient Glow */
         .hero-ambient-glow {
             position: absolute;
             width: 400px; height: 400px;
@@ -202,10 +202,9 @@
             font-size: 4.8rem; 
             line-height: 1.15; 
             margin-bottom: 25px; 
-            transform: translateZ(30px); /* Pushes text forward in 3D space */
+            transform: translateZ(30px);
         }
         
-        /* Dynamic Typewriter Text */
         .text-glow {
             background: linear-gradient(to right, #06b6d4, #4f46e5, #0ea5e9, #06b6d4);
             background-size: 200% auto;
@@ -233,10 +232,10 @@
             margin-bottom: 50px; 
             font-weight: 300; 
             line-height: 1.8; 
-            transform: translateZ(15px); /* Pushes paragraph forward */
+            transform: translateZ(15px);
         }
 
-        /* --- 2. ABOUT --- */
+        /* --- ABOUT --- */
         .about-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -264,7 +263,7 @@
         .finance-box p:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
         .finance-box strong { color: var(--primary); font-weight: 800; float: right; font-size: 1.1rem; }
 
-        /* --- 3. SERVICES --- */
+        /* --- SERVICES --- */
         .services-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;
             max-width: 1250px; margin: 0 auto; padding: 0 5% 80px;
@@ -274,10 +273,10 @@
             box-shadow: var(--shadow-sm); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;
             display: flex; flex-direction: column; position: relative;
         }
-        .service-card:hover { transform: translateY(-15px); box-shadow: var(--shadow-glow); }
+        .service-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-glow); }
         .service-img-wrapper { width: 100%; height: 220px; overflow: hidden; position: relative; }
         .service-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
-        .service-card:hover .service-img-wrapper img { transform: scale(1.1); }
+        .service-card:hover .service-img-wrapper img { transform: scale(1.08); }
         .service-icon-float {
             position: absolute; bottom: -30px; right: 30px; width: 65px; height: 65px; background: var(--gradient);
             color: var(--white); display: flex; align-items: center; justify-content: center; border-radius: 16px;
@@ -292,31 +291,138 @@
             font-size: 0.85rem; font-weight: 700; color: var(--primary); background: rgba(79, 70, 229, 0.05); 
             padding: 12px 18px; border-radius: 10px; margin-bottom: 20px; display: inline-block;
         }
-        .explore-link { font-size: 0.95rem; font-weight: 800; color: var(--text-light); text-transform: uppercase; transition: color 0.3s ease; display: flex; align-items: center; gap: 8px;}
-        .service-card:hover .explore-link { color: var(--primary); }
+        .explore-link { font-size: 0.95rem; font-weight: 800; color: var(--primary); text-transform: uppercase; transition: color 0.3s ease; display: flex; align-items: center; gap: 8px;}
         .service-card:hover .explore-link i { transform: translateX(8px); }
         .explore-link i { transition: transform 0.3s ease; }
 
-        /* --- 4. CLIENTS & PARTNERS --- */
-        .industries-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 5% 80px; }
-        .industry-card {
-            background: var(--white); border: 1px solid var(--border-light); border-radius: 20px; padding: 50px 30px;
-            text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: var(--shadow-sm);
-            cursor: pointer; position: relative; overflow: hidden; z-index: 1;
+        /* --- SERVICE MODAL POP-UP --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
         }
-        .industry-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient);
-            opacity: 0; z-index: -1; transition: opacity 0.4s ease;
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
         }
-        .industry-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-glow); border-color: transparent; }
-        .industry-card:hover::before { opacity: 1; }
-        .industry-card i { font-size: 3rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 25px; transition: all 0.4s ease; }
-        .industry-card:hover i { background: var(--white); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transform: scale(1.2); }
-        .industry-card h3 { font-size: 1.3rem; color: var(--dark-navy); margin-bottom: 10px; transition: color 0.4s ease;}
-        .industry-card p { font-size: 0.95rem; color: var(--text-light); transition: color 0.4s ease;}
-        .industry-card:hover h3, .industry-card:hover p { color: var(--white); }
+        .modal-card {
+            background: var(--white);
+            border-radius: 24px;
+            max-width: 750px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid var(--border-light);
+        }
+        .modal-overlay.active .modal-card {
+            transform: translateY(0) scale(1);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 20px; right: 20px;
+            width: 42px; height: 42px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--dark-navy);
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .modal-close-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: rotate(90deg);
+        }
+        .modal-header-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+        }
+        .modal-body {
+            padding: 40px;
+        }
+        .modal-badge {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .modal-body h3 {
+            font-size: 2.2rem;
+            color: var(--dark-navy);
+            margin-bottom: 15px;
+        }
+        .modal-description {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        .modal-section-title {
+            font-size: 1.1rem;
+            color: var(--dark-navy);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .modal-features {
+            list-style: none;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .modal-features li {
+            background: var(--bg-light);
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--border-light);
+        }
+        .modal-features li i {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-light);
+            padding-top: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
-        /* --- 5. CONTACT --- */
+        /* --- CONTACT --- */
         .contact-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; max-width: 1100px; margin: 0 auto; padding: 0 5% 80px; }
         .contact-details {
             background: var(--dark-navy); color: var(--white); padding: 50px 40px; border-radius: 20px;
@@ -343,7 +449,9 @@
             header { flex-direction: column; gap: 15px; padding: 20px 5%; }
             nav { flex-wrap: wrap; justify-content: center; }
             .hero h1 { font-size: 3.2rem; }
-            .hero-content { transform: none !important; } /* Disable 3D tilt on mobile */
+            .hero-content { transform: none !important; }
+            .modal-body { padding: 25px; }
+            .modal-footer { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -359,12 +467,11 @@
             <a onclick="showPage('home')" class="active-tab" id="tab-home">Home</a>
             <a onclick="showPage('about')" id="tab-about">About Us</a>
             <a onclick="showPage('services')" id="tab-services">Services</a>
-            <a onclick="showPage('industries')" id="tab-industries">Clients & Partners</a>
             <a onclick="showPage('contact')" id="tab-contact">Contact</a>
         </nav>
     </header>
 
-    <!-- 1. HOME (NOW HIGHLY INTERACTIVE) -->
+    <!-- 1. HOME -->
     <main id="home" class="page-content active-page">
         <section class="hero animate-1" id="hero-section">
             <div class="hero-ambient-glow" id="ambient-glow"></div>
@@ -417,7 +524,7 @@
         
         <div class="services-grid animate-2">
             <!-- Service 1 -->
-            <div class="service-card" onclick="showPage('contact')">
+            <div class="service-card" onclick="openServiceModal('automation')">
                 <div class="service-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1770&auto=format&fit=crop" alt="Automation Testing">
                     <div class="service-icon-float"><i class="fa-solid fa-robot"></i></div>
@@ -426,12 +533,12 @@
                     <h3>Automation Testing</h3>
                     <p>Automates repetitive and regression tests for web, mobile, API, and desktop apps. Covers OTT platforms, VR/AR, and games.</p>
                     <div class="tools"><i class="fa-solid fa-code"></i> Selenium, Playwright, Appium</div>
-                    <span class="explore-link">Engage Service <i class="fa-solid fa-arrow-right"></i></span>
+                    <span class="explore-link">View Full Details <i class="fa-solid fa-arrow-right"></i></span>
                 </div>
             </div>
 
             <!-- Service 2 -->
-            <div class="service-card" onclick="showPage('contact')">
+            <div class="service-card" onclick="openServiceModal('api')">
                 <div class="service-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1770&auto=format&fit=crop" alt="API Testing">
                     <div class="service-icon-float"><i class="fa-solid fa-network-wired"></i></div>
@@ -440,12 +547,12 @@
                     <h3>API Testing</h3>
                     <p>Verifies REST/SOAP APIs for functionality, security, and performance. Ensures reliable communication between backend systems.</p>
                     <div class="tools"><i class="fa-solid fa-code"></i> Postman, REST Assured, SoapUI</div>
-                    <span class="explore-link">Engage Service <i class="fa-solid fa-arrow-right"></i></span>
+                    <span class="explore-link">View Full Details <i class="fa-solid fa-arrow-right"></i></span>
                 </div>
             </div>
 
             <!-- Service 3 -->
-            <div class="service-card" onclick="showPage('contact')">
+            <div class="service-card" onclick="openServiceModal('security')">
                 <div class="service-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1770&auto=format&fit=crop" alt="Security Testing">
                     <div class="service-icon-float"><i class="fa-solid fa-shield-halved"></i></div>
@@ -454,12 +561,12 @@
                     <h3>Security Testing</h3>
                     <p>Identifies vulnerabilities, ensures data protection, and tests application security against attacks like SQL injection and XSS.</p>
                     <div class="tools"><i class="fa-solid fa-code"></i> OWASP ZAP, Burp Suite, Acunetix</div>
-                    <span class="explore-link">Engage Service <i class="fa-solid fa-arrow-right"></i></span>
+                    <span class="explore-link">View Full Details <i class="fa-solid fa-arrow-right"></i></span>
                 </div>
             </div>
 
             <!-- Service 4 -->
-            <div class="service-card" onclick="showPage('contact')">
+            <div class="service-card" onclick="openServiceModal('performance')">
                 <div class="service-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1770&auto=format&fit=crop" alt="Performance Testing">
                     <div class="service-icon-float"><i class="fa-solid fa-gauge-high"></i></div>
@@ -468,12 +575,12 @@
                     <h3>Performance Testing</h3>
                     <p>Measures speed, stability, and scalability of applications under peak loads. Includes stress, endurance, and spike testing.</p>
                     <div class="tools"><i class="fa-solid fa-code"></i> LoadRunner, JMeter, Gatling</div>
-                    <span class="explore-link">Engage Service <i class="fa-solid fa-arrow-right"></i></span>
+                    <span class="explore-link">View Full Details <i class="fa-solid fa-arrow-right"></i></span>
                 </div>
             </div>
 
             <!-- Service 5 -->
-            <div class="service-card" onclick="showPage('contact')">
+            <div class="service-card" onclick="openServiceModal('ott')">
                 <div class="service-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=1770&auto=format&fit=crop" alt="OTT Testing">
                     <div class="service-icon-float"><i class="fa-solid fa-tv"></i></div>
@@ -481,13 +588,13 @@
                 <div class="service-content">
                     <h3>OTT & Media Testing</h3>
                     <p>Specialized QA for streaming platforms, validating playback, buffering, cross-device compatibility, and content protection.</p>
-                    <div class="tools"><i class="fa-solid fa-code"></i> BrowserStack, Appium</div>
-                    <span class="explore-link">Engage Service <i class="fa-solid fa-arrow-right"></i></span>
+                    <div class="tools"><i class="fa-solid fa-code"></i> BrowserStack, Appium, Charles</div>
+                    <span class="explore-link">View Full Details <i class="fa-solid fa-arrow-right"></i></span>
                 </div>
             </div>
 
             <!-- Service 6 -->
-            <div class="service-card" onclick="showPage('contact')">
+            <div class="service-card" onclick="openServiceModal('game')">
                 <div class="service-img-wrapper">
                     <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=1770&auto=format&fit=crop" alt="Game Testing">
                     <div class="service-icon-float"><i class="fa-solid fa-gamepad"></i></div>
@@ -495,61 +602,41 @@
                 <div class="service-content">
                     <h3>Game Testing</h3>
                     <p>Verifies gameplay mechanics, graphics rendering, and performance across platforms. Includes compatibility checks.</p>
-                    <div class="tools"><i class="fa-solid fa-code"></i> Unity Test Tools, OBS</div>
-                    <span class="explore-link">Engage Service <i class="fa-solid fa-arrow-right"></i></span>
+                    <div class="tools"><i class="fa-solid fa-code"></i> Unity Test Tools, OBS, Xcode</div>
+                    <span class="explore-link">View Full Details <i class="fa-solid fa-arrow-right"></i></span>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- 4. CLIENTS & PARTNERS -->
-    <main id="industries" class="page-content">
-        <div class="section-header animate-1">
-            <h2>Our Clients & Partners</h2>
-            <div class="divider"></div>
-            <p>Trusted by domestic enterprises and international service vendors.</p>
-        </div>
-        
-        <h3 class="animate-2" style="text-align: center; color: var(--text-light); margin-bottom: 40px; font-weight: 700; text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;">Domestic Clients</h3>
-        <div class="industries-grid animate-2" style="margin-bottom: 60px;">
-            <div class="industry-card">
-                <i class="fa-solid fa-building"></i>
-                <h3>N9 Media Tech</h3>
-                <p>Mumbai, India</p>
-            </div>
-            <div class="industry-card">
-                <i class="fa-solid fa-building-user"></i>
-                <h3>Online Visionary</h3>
-                <p>Delhi, India</p>
-            </div>
-            <div class="industry-card">
-                <i class="fa-solid fa-credit-card"></i>
-                <h3>Pay Tech India</h3>
-                <p>Hyderabad, India</p>
-            </div>
-            <div class="industry-card">
-                <i class="fa-solid fa-laptop-code"></i>
-                <h3>Techlobby Solutions</h3>
-                <p>Hyderabad, India</p>
-            </div>
-        </div>
+    <!-- SERVICE POP-UP MODAL WINDOW -->
+    <div class="modal-overlay" id="service-modal" onclick="closeServiceModalOnOverlay(event)">
+        <div class="modal-card">
+            <button class="modal-close-btn" onclick="closeServiceModal()"><i class="fa-solid fa-xmark"></i></button>
+            <img id="modal-img" class="modal-header-img" src="" alt="Service Banner">
+            
+            <div class="modal-body">
+                <span id="modal-badge" class="modal-badge">QA Engineering</span>
+                <h3 id="modal-title">Service Title</h3>
+                <p id="modal-desc" class="modal-description">Full service detailed explanation goes here...</p>
+                
+                <h4 class="modal-section-title">Key Capabilities & Deliverables</h4>
+                <ul id="modal-features" class="modal-features">
+                    <!-- Dynamic Features injected via JS -->
+                </ul>
 
-        <h3 class="animate-3" style="text-align: center; color: var(--text-light); margin: 20px 0 40px; font-weight: 700; text-transform: uppercase; font-size: 1rem; letter-spacing: 2px;">International Vendors</h3>
-        <div class="industries-grid animate-3" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <div class="industry-card">
-                <i class="fa-solid fa-handshake"></i>
-                <h3>Gamiler Enterprises</h3>
-                <p>Imported IT Services</p>
-            </div>
-            <div class="industry-card">
-                <i class="fa-solid fa-globe"></i>
-                <h3>Clicking IT PTE LTD</h3>
-                <p>Imported IT Services</p>
+                <div class="modal-footer">
+                    <div>
+                        <span style="font-size: 0.85rem; color: var(--text-light); display: block;">Primary Toolchain</span>
+                        <strong id="modal-tools" style="color: var(--primary); font-size: 1rem;">Tooling Info</strong>
+                    </div>
+                    <button onclick="closeServiceModal(); showPage('contact');" class="btn">Engage This Service</button>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <!-- 5. CONTACT -->
+    <!-- 4. CONTACT -->
     <main id="contact" class="page-content">
         <div class="section-header animate-1">
             <h2>Let's Get In Touch</h2>
@@ -605,7 +692,136 @@
 
     <!-- INTERACTIVE SCRIPTS -->
     <script>
-        // --- 1. Page Navigation Logic ---
+        // --- Service Details Repository ---
+        const servicesData = {
+            automation: {
+                title: "Test Automation Engineering",
+                badge: "Framework & CI/CD QA",
+                image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1770&auto=format&fit=crop",
+                description: "Accelerate delivery cycles while drastically reducing human error with our bespoke test automation solutions. We design custom, maintainable, and scalable test frameworks tailored to your tech stack, integrating directly into your CI/CD pipelines.",
+                tools: "Selenium, Playwright, Appium, Cypress, TestNG",
+                features: [
+                    "Cross-Browser & Multi-Device Execution",
+                    "Continuous CI/CD Pipeline Integration (Jenkins/GitHub Actions)",
+                    "Hybrid & Data-Driven Automation Frameworks",
+                    "Automated Regression & Smoke Test Suites",
+                    "Detailed HTML & Visual Dashboard Reporting"
+                ]
+            },
+            api: {
+                title: "API & Microservices Testing",
+                badge: "Backend & Data Integrity",
+                image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1770&auto=format&fit=crop",
+                description: "Ensure flawless data exchange and seamless backend logic. Our API validation strategies evaluate RESTful, SOAP, and GraphQL interfaces for structural correctness, edge-case resilience, payload integrity, and high-concurrency throughput.",
+                tools: "Postman, REST Assured, SoapUI, Karate",
+                features: [
+                    "End-to-End REST, SOAP & GraphQL Validation",
+                    "Automated Schema & Payload Verification",
+                    "Security Header & Token Authentication Testing",
+                    "Mock Server Creation & Contract Testing",
+                    "CI-Driven API Regression Suites"
+                ]
+            },
+            security: {
+                title: "Security & Vulnerability Assessment",
+                badge: "Cyber Defense & Pen Testing",
+                image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1770&auto=format&fit=crop",
+                description: "Safeguard your enterprise systems against emerging cyber threats and compliance risks. We conduct comprehensive vulnerability assessments and penetration tests (DAST/SAST) to discover security flaws before attackers do.",
+                tools: "OWASP ZAP, Burp Suite, Acunetix, SonarQube",
+                features: [
+                    "OWASP Top 10 Threat Analysis (SQLi, XSS, CSRF)",
+                    "Static & Dynamic Application Security Testing (SAST/DAST)",
+                    "Role-Based Access Control & Privilege Escalation Audits",
+                    "Data Encryption & Storage Security Checks",
+                    "Compliance Verification & Remediation Guidance"
+                ]
+            },
+            performance: {
+                title: "Performance & Load Engineering",
+                badge: "Scale & Reliability",
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1770&auto=format&fit=crop",
+                description: "Evaluate how your platform withstands real-world traffic spikes and long-term strain. We simulate high-concurrency workloads to pinpoint server bottlenecks, memory leaks, and database latency issues before launch.",
+                tools: "Apache JMeter, LoadRunner, Gatling, k6",
+                features: [
+                    "Peak Load & High Concurrency Simulation",
+                    "Stress & Breakpoint Limit Testing",
+                    "Endurance & Soak Testing for Memory Leaks",
+                    "Spike & Instant Traffic Surge Analysis",
+                    "Database Query & Server Bottleneck Diagnostics"
+                ]
+            },
+            ott: {
+                title: "OTT & Streaming Media Testing",
+                badge: "Digital Media Assurance",
+                image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=1770&auto=format&fit=crop",
+                description: "Deliver uninterrupted, crystal-clear streaming content across Smart TVs, streaming dongles, and mobile OS environments. We test live stream stability, adaptive bitrate switching, DRM protection, and user playback UX.",
+                tools: "BrowserStack, Appium, Charles Proxy, Xcode",
+                features: [
+                    "Adaptive Bitrate (ABR) & Buffering Optimization",
+                    "DRM Protection & Licensing Verification",
+                    "Multi-Platform (Apple TV, Android TV, Roku, FireTV)",
+                    "Network Latency & Network Throttling Simulation",
+                    "Ad-Insertion & Monetization Analytics Testing"
+                ]
+            },
+            game: {
+                title: "Game QA & Graphics Validation",
+                badge: "Interactive & Performance QA",
+                image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=1770&auto=format&fit=crop",
+                description: "Ensure immersive, bug-free gameplay with zero frame drops or collision exploits. Our game QA team evaluates game mechanics, cross-platform compatibility, multiplayer network synchronization, and graphics rendering performance.",
+                tools: "Unity Test Tools, OBS Studio, Android Profiler, Xcode",
+                features: [
+                    "Gameplay Mechanics & Physics Engine Testing",
+                    "Frame Rate (FPS) Stability & GPU/CPU Profiling",
+                    "Multiplayer Synchronization & Latency Tests",
+                    "Localization & Audio Sync Checks",
+                    "In-Game Purchases & Microtransaction Testing"
+                ]
+            }
+        };
+
+        // --- Service Modal Controls ---
+        function openServiceModal(serviceKey) {
+            const data = servicesData[serviceKey];
+            if (!data) return;
+
+            document.getElementById('modal-img').src = data.image;
+            document.getElementById('modal-badge').innerText = data.badge;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-desc').innerText = data.description;
+            document.getElementById('modal-tools').innerText = data.tools;
+
+            const featuresList = document.getElementById('modal-features');
+            featuresList.innerHTML = '';
+            data.features.forEach(feat => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${feat}`;
+                featuresList.appendChild(li);
+            });
+
+            const modal = document.getElementById('service-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock scroll
+        }
+
+        function closeServiceModal() {
+            const modal = document.getElementById('service-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scroll
+        }
+
+        function closeServiceModalOnOverlay(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeServiceModal();
+            }
+        }
+
+        // Close on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeServiceModal();
+        });
+
+        // --- Page Navigation Logic ---
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page-content');
             pages.forEach(page => {
@@ -625,7 +841,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // --- 2. Dynamic Typewriter Effect ---
+        // --- Dynamic Typewriter Effect ---
         const words = ["Software Testing", "Test Automation", "API Validation", "Security Audits", "Performance QA"];
         let wordIndex = 0;
         let charIndex = 0;
@@ -646,41 +862,35 @@
             let typingSpeed = isDeleting ? 40 : 100;
 
             if (!isDeleting && charIndex === currentWord.length) {
-                typingSpeed = 2500; // Pause at end of word
+                typingSpeed = 2500;
                 isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length; // Move to next word
-                typingSpeed = 500; // Pause before typing new word
+                wordIndex = (wordIndex + 1) % words.length;
+                typingSpeed = 500;
             }
 
             setTimeout(typeWriter, typingSpeed);
         }
         
-        // Start Typewriter
         document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(typeWriter, 1000); // Small initial delay
+            setTimeout(typeWriter, 1000);
         });
 
-        // --- 3. 3D Mouse Tracking & Ambient Glow ---
+        // --- 3D Mouse Tracking & Ambient Glow ---
         const heroSection = document.getElementById('hero-section');
         const heroContent = document.getElementById('hero-content');
         const ambientGlow = document.getElementById('ambient-glow');
 
-        // Only run 3D effect on Desktop sizes
         if (window.innerWidth > 900) {
             heroSection.addEventListener('mousemove', (e) => {
                 const rect = heroSection.getBoundingClientRect();
-                
-                // Calculate mouse position relative to hero section
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 
-                // Move the ambient background glow
                 ambientGlow.style.left = `${x}px`;
                 ambientGlow.style.top = `${y}px`;
 
-                // Calculate 3D tilt (Limit max rotation to 8 degrees)
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 const tiltX = ((y - centerY) / centerY) * -8; 
@@ -689,7 +899,6 @@
                 heroContent.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
             });
 
-            // Reset elements when mouse leaves hero section
             heroSection.addEventListener('mouseleave', () => {
                 heroContent.style.transform = `rotateX(0deg) rotateY(0deg)`;
                 heroContent.style.transition = `transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)`;
@@ -698,7 +907,6 @@
                 ambientGlow.style.top = `50%`;
             });
 
-            // Remove transition delay while moving mouse for instant response
             heroSection.addEventListener('mouseenter', () => {
                 heroContent.style.transition = `transform 0.1s ease-out`;
             });
